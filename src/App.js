@@ -36,9 +36,27 @@ export default class App extends React.Component{
       editItem: false
     })
   }
-  handleDelete = (id) => console.log(`handle Delete ${id}`)
-  handleEdit = (id) => console.log(`handle Edit ${id}`)
-  clearList = () => console.log('clear list')
+  handleDelete = (id) => {
+    const filteredItems = this.state.items.filter(item => item.id !== id)
+    this.setState({
+      items: filteredItems
+    })
+  }
+  handleEdit = (id) => {
+    const uneditedItems = this.state.items.filter(item => item.id !== id)
+    const selectedItem = this.state.items.find(item => item.id === id)
+    this.setState({
+      items: uneditedItems,
+      item: selectedItem.title,
+      id: id,
+      editItem: true
+    })
+  }
+  clearList = () => {
+    this.setState({
+      items: []
+    })
+  }
   render(){
   return (
     <div className="container">
